@@ -13,7 +13,7 @@ function Navbar() {
         setIsMenuOpen(!isMenuOpen)
     }
     return (
-        <div className='bg-gradient-to-r from-emerald-700 to-emerald-500 border-b-2 border-b-green-800 shadow-md px-6 py-4 shadow-md'>
+        <div className='bg-gradient-to-r fixed top-0 left-0 right-0 z-30 from-emerald-400 to-emerald-600 border-b-2 border-b-green-800 shadow-md px-6 py-4 shadow-md'>
             <div className='flex justify-between items-center'>
                 <div className='flex items-center '>
                     <div className='flex items-center justify-center bg-white/20 rounded-lg text-white py-2 px-4 backdrop-blur-sm'>
@@ -25,7 +25,7 @@ function Navbar() {
                                 onError={() => setImageError(true)}
                             />
                         ) : (<User size={20} className="text-white" />)}
-                        <span className='font-medium ml-2'>{user?.name}</span>
+
                     </div>
 
                 </div>
@@ -38,7 +38,7 @@ function Navbar() {
 
                     {isMenuOpen && (
                         <div className='bg-gradient-to-r from-teal-600 to-cyan-600 flex flex-col justify-start border-2 border-white/20 shadow-lg text-white absolute right-2 top-15 p-5 rounded-xl backdrop-blur-sm'>
-                            <div className='p-4 rounded-lg bg-white/10'>
+                            <div className='p-4 rounded-lg bg-gradient-to-r from-emerald-400 to-emerald-600'>
                                 <div className='flex flex-row mb-5 items-center'>
                                     {!imageError && user?.avatar ? (
                                         <img

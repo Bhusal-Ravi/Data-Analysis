@@ -7,6 +7,9 @@ const session = require("express-session");
 const passportSetup=require('./passport')
 const authRoute= require('./routes/auth');
 const connectdb = require('./config/dbconnection');
+const uploadRoute = require("./uploads/uploadRoute")
+const DatasetRow= require('./uploads/datasetRoutes')
+const userdataRoute= require('./uploads/userdata')
 
 app.use(
     session({
@@ -14,7 +17,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: false, // set to true if using https
+            secure: false, 
             maxAge: 24 * 60 * 60 * 1000 // 24 hours
         }
     })
@@ -29,6 +32,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/auth',authRoute);
+app.use('/api',uploadRoute);
+app.use('/api',DatasetRow);
+app.use('/api',userdataRoute);
+
 connectdb();
 
 const PORT = process.env.PORT || 5000

@@ -1,9 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Upload from './Upload'
+import DataTable from './DataTable';
+import UserData from './UserData';
 
 function Home() {
+    const [datasetId, setdataSetId] = useState(null);
+    const [newUploads, setNewUploads] = useState(0);
+
+    useEffect(() => {
+        console.log("new dataset activated", datasetId)
+    }, [datasetId])
     return (
-        < div className='mt-3' >
-            <h1 className='text-3xl font-bold'>home</h1>
+        < div className=''
+            style={{
+                backgroundImage: "url('/loginbg.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                minHeight: "100vh",
+                backgroundAttachment: "fixed",
+                paddingTop: "80px",
+            }}
+        >
+            <div className='absolute inset-0 z-10  bg-black/20 pointer-events-none'></div>
+            <div className='flex justify-center relative z-20 m-20 items-start    flex-row'>
+                <div>
+                    <Upload onUploadSuccess={setdataSetId} onNewUpload={setNewUploads} />
+                    {datasetId && <DataTable datasetId={datasetId} />}
+                </div>
+                <div className='ml-5 '>
+                    <UserData onDataSetClick={setdataSetId} newUploads={newUploads} selectedDatasetId={datasetId} />
+                </div>
+
+
+            </div>
         </div >
     )
 }
