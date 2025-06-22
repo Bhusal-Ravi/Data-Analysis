@@ -1,0 +1,38 @@
+const express = require('express');
+const cors = require('cors');
+const app=express();
+const dotenv= require ('dotenv').config();
+const passport= require("passport");
+const session = require("express-session");
+const passportSetup=require('./passport')
+const authRoute= require('./routes/auth');
+const connectdb = require('./config/dbconnection');
+
+app.use(
+    session({
+        secret: process.env.SESSION_KEY || 'your-secret-key',
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            secure: false, // set to true if using https
+            maxAge: 24 * 60 * 60 * 1000 // 24 hours
+        }
+    })
+);
+app.use(
+    cors({
+    origin:'http://localhost:5175',
+    methods:"GET,POST,PUT,DELETE",
+    credentials:true,
+})
+)
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/auth',authRoute);
+connectdb();
+
+const PORT = process.env.PORT || 5000
+
+app.listen(PORT,()=>{
+    console.log(`Server Running On Port ${PORT}`)
+})
