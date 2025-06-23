@@ -29,8 +29,13 @@ function Navbar() {
                     </div>
 
                 </div>
-                <div>
-                    <h1 className='text-2xl font-bold text-white'>Data Analysis</h1>
+                <div className='flex flex-row justify-center items-center'>
+                    <img
+                        className='h-10 w-10 sm:h-15 sm:w-15 md:h-20 md:w-20 object-contain drop-shadow-lg'
+                        src='/dataanalysisw.png'
+                        alt="Data Analysis Logo"
+                    />
+                    <h1 className='text-2xl font-bold text-white '>Data Analysis</h1>
                 </div>
 
                 <div>
