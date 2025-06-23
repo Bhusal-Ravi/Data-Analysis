@@ -22,13 +22,14 @@ function Home() {
             }}
         >
             <div className='absolute inset-0 z-10  bg-black/20 pointer-events-none'></div>
-            <div className='flex justify-center relative z-20 m-20 items-start    flex-row'>
-                <div>
+            <div className='flex justify-center relative z-20 m-20 items-center    flex-col'>
+                <div className='flex gap-5'>
                     <Upload onUploadSuccess={setdataSetId} onNewUpload={setNewUploads} />
-                    {datasetId && <DataTable datasetId={datasetId} />}
+                    <UserData onDataSetClick={setdataSetId} newUploads={newUploads} selectedDatasetId={datasetId} />
                 </div>
                 <div className='ml-5 '>
-                    <UserData onDataSetClick={setdataSetId} newUploads={newUploads} selectedDatasetId={datasetId} />
+                    {datasetId && <DataTable datasetId={datasetId} />}
+
                 </div>
 
 
