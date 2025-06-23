@@ -57,7 +57,7 @@ function UserData({ onDataSetClick, newUploads, selectedDatasetId }) {
 
                 {isMenueOpen && (
                     <div className='absolute top-full mt-2 left-0 overflow-y-scroll h-100 bg-white/50 border-2 border-dashed border-emerald-400 rounded-xl shadow-lg p-4 w-64 z-50 '>
-                        {loading && (<p>Loading ...</p>)}
+                        {loading && (<p>Loading ....</p>)}
 
                         {!loading && data.length > 0 && (
                             <div className="mt-4">
