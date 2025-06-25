@@ -1,20 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { ReloadContext } from './ReloadProvider';
 
-
-
-function Columnedit({ rows }) {
+function Columnedit({ rows, onColumnDelete }) {
     const [dataSetId, setDataSetId] = useState(null);
-    async function handleColumnClick() {
+    const { handleReload } = useContext(ReloadContext)
+
+
+
+    async function handleColumnClick(col) {
         try {
-            const response = await fetch(`http://localhost:5001/api/columnedit/${dataSetId}`, {
+            const response = await fetch(`http://localhost:5001/api/columndelete/${dataSetId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: Json.stringify({})
+                body: JSON.stringify({ col })
             })
+
+            const result = await response.json();
+
+            if (response.ok) {
+                console.log("Succcess")
+                onColumnDelete()
+                handleReload()
+            } else {
+                throw new Error(result.message || "Could not delete")
+            }
+
         } catch (error) {
-            throw new Error("Error deleting the column", error)
+            console.error(error)
         }
     }
 
@@ -24,6 +38,8 @@ function Columnedit({ rows }) {
         console.log(Id)
         setDataSetId(Id[1])
     }, [rows])
+
+
 
     return (
         <div className='flex flex-col mt-5'>

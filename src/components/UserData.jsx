@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ChevronDown } from 'lucide-react';
 import { X } from 'lucide-react';
+import { ReloadContext } from './ReloadProvider';
 
 function UserData({ onDataSetClick, newUploads, selectedDatasetId }) {
+    const { trigger } = useContext(ReloadContext)
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false)
@@ -39,7 +41,7 @@ function UserData({ onDataSetClick, newUploads, selectedDatasetId }) {
 
     useEffect(() => {
         handleUserData();
-    }, [newUploads])
+    }, [newUploads, trigger])
 
     function handleClick(dataid) {
         console.log('Dataset clicked:', dataid);
@@ -71,6 +73,7 @@ function UserData({ onDataSetClick, newUploads, selectedDatasetId }) {
                                             </p>
                                             <p className="text-sm text-emerald-600">
                                                 Columns: {dataset.columns?.length || 0}
+                                                {console.log("HELLOGELLO", dataset.columns)}
                                             </p>
                                         </div>
                                     ))}

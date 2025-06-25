@@ -30,6 +30,7 @@ app.use(
     credentials:true,
 })
 )
+app.use(express.json()); // Important for parsing any json coming to the backend [Note]
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/auth',authRoute);

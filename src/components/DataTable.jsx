@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import Columnedit from './Columnedit';
 
+
 function DataTable({ datasetId }) {
     const [rows, setRows] = useState([]);
     const [page, setPage] = useState(1);
@@ -53,6 +54,14 @@ function DataTable({ datasetId }) {
             fetchRows();
         }
     }, [datasetId, page]);
+
+    function handleColumnDelete() {
+        setRows([]);
+        setPage(1);
+        setHasMore(true);
+        setLoading(false);
+        fetchRows();
+    }
 
     function handleScroll() {
         const e = tableRef.current;
@@ -166,7 +175,10 @@ function DataTable({ datasetId }) {
                 </div>
             )}
 
-            {rows && <Columnedit rows={rows} />}
+            {rows &&
+
+                <Columnedit rows={rows} onColumnDelete={handleColumnDelete} />
+            }
         </div>
     )
 }
