@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
+import Columnedit from './Columnedit';
 
 function DataTable({ datasetId }) {
     const [rows, setRows] = useState([]);
@@ -15,11 +16,11 @@ function DataTable({ datasetId }) {
         setLoading(true);
         try {
             const response = await fetch(`http://localhost:5001/api/datasets/${datasetId}/rows?page=${page}&limit=50`);
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             const newRows = await response.json();
             console.log('Received rows:', newRows.length);
 
@@ -164,6 +165,8 @@ function DataTable({ datasetId }) {
                     </div>
                 </div>
             )}
+
+            {rows && <Columnedit rows={rows} />}
         </div>
     )
 }
