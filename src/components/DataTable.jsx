@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import Columnedit from './Columnedit';
+import { ArrowUpNarrowWide } from 'lucide-react';
+import { ArrowDownNarrowWide } from 'lucide-react';
+import { EllipsisVertical } from 'lucide-react';
 
 
 function DataTable({ datasetId }) {
@@ -8,6 +11,8 @@ function DataTable({ datasetId }) {
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [currentDatasetId, setCurrentDatasetId] = useState(null);
+    const [sort, setSort] = useState(null);
+    const [sortBox, setSortBox] = useState({});
 
     const tableRef = useRef(null);
 
@@ -16,7 +21,7 @@ function DataTable({ datasetId }) {
 
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5001/api/datasets/${datasetId}/rows?page=${page}&limit=50`);
+            const response = await fetch(`http://localhost:5001/api/datasets/${datasetId}/rows?page=${page}&limit=50&sort=${sort}`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -71,6 +76,23 @@ function DataTable({ datasetId }) {
             setPage(prev => prev + 1);
         }
     }
+    function handleSortBox(colkey) {
+
+        if (sortBox.key === colkey) {
+            setSortBox((prev) => ({
+                ...prev,
+                open: prev.open ? 0 : 1,
+            }));
+        } else {
+            setSortBox({
+                key: colkey,
+                open: 1,
+                sort: "ascending",
+            })
+        }
+
+
+    }
 
     return (
         <div className="w-full max-w-7xl mx-auto mt-8">
@@ -86,7 +108,7 @@ function DataTable({ datasetId }) {
             <div
                 ref={tableRef}
                 onScroll={handleScroll}
-                className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden"
+                className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-x-scroll overflow-hidden"
                 style={{ height: "500px", overflowY: "auto" }}
             >
                 {rows.length > 0 ? (
@@ -98,7 +120,17 @@ function DataTable({ datasetId }) {
                                     .filter(key => key !== '_id' && key !== "datasetId" && key !== "__v")
                                     .map((col) => (
                                         <th key={col} className="px-6 py-4 text-left text-sm font-bold text-white uppercase tracking-wider border-b-2 border-emerald-300">
-                                            {col.replace(/([A-Z])/g, ' $1').trim()} {/* Format camelCase */}
+                                            <div className='flex justify-center items-center'>
+                                                <div>
+                                                    <EllipsisVertical onClick={() => handleSortBox(col)} />
+                                                    {(sortBox.key === col && sortBox.open === 1) && (<div className={``}>
+                                                        <h1>Hello</h1>
+                                                    </div>)}
+                                                </div>
+                                                <span>
+                                                    {col.replace(/([A-Z])/g, ' $1').trim()} {/* Format camelCase */}
+                                                </span>
+                                            </div>
                                         </th>
                                     ))}
                             </tr>
