@@ -11,8 +11,10 @@ function DataTable({ datasetId }) {
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [currentDatasetId, setCurrentDatasetId] = useState(null);
-    const [sort, setSort] = useState(null);
+    const [appliedSort, setAppliedSort] = useState({});
+
     const [sortBox, setSortBox] = useState({});
+    const [selectedOption, setSelectedOption] = useState('')
 
     const tableRef = useRef(null);
 
@@ -21,7 +23,7 @@ function DataTable({ datasetId }) {
 
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5001/api/datasets/${datasetId}/rows?page=${page}&limit=50&sort=${sort}`);
+            const response = await fetch(`http://localhost:5001/api/datasets/${datasetId}/rows?page=${page}&limit=50&sort=${sortBox.key}&order=${appliedSort.sort}`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -38,7 +40,7 @@ function DataTable({ datasetId }) {
         } finally {
             setLoading(false);
         }
-    }, [datasetId, page]);
+    }, [datasetId, page, appliedSort.key, appliedSort.sort]);
 
     // Handle dataset changes
     useEffect(() => {
@@ -49,6 +51,9 @@ function DataTable({ datasetId }) {
             setPage(1);
             setHasMore(true);
             setLoading(false);
+            setSortBox({});
+            setSelectedOption('');
+            setAppliedSort({});
         }
     }, [datasetId, currentDatasetId]);
 
@@ -58,7 +63,7 @@ function DataTable({ datasetId }) {
             console.log('Fetching data for dataset:', datasetId, 'page:', page);
             fetchRows();
         }
-    }, [datasetId, page]);
+    }, [datasetId, page, appliedSort.key, appliedSort.sort]);
 
     function handleColumnDelete() {
         setRows([]);
@@ -83,14 +88,30 @@ function DataTable({ datasetId }) {
                 ...prev,
                 open: prev.open ? 0 : 1,
             }));
+
         } else {
-            setSortBox({
+            setSortBox((prev) => ({
+                ...prev,
                 key: colkey,
-                open: 1,
-                sort: "ascending",
-            })
+                open: 1
+            }))
         }
 
+        console.log(sortBox)
+    }
+
+    function handleSortApply(col) {
+        if (col === sortBox.key) {
+            setAppliedSort({
+                key: col,
+                sort: selectedOption
+            });
+        }
+        console.log("applied")
+        setRows([]);
+        setPage(1);
+        setHasMore(true);
+        setLoading(false);
 
     }
 
@@ -108,24 +129,45 @@ function DataTable({ datasetId }) {
             <div
                 ref={tableRef}
                 onScroll={handleScroll}
-                className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-x-scroll overflow-hidden"
+                className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-x-scroll overflow-visible"
                 style={{ height: "500px", overflowY: "auto" }}
             >
                 {rows.length > 0 ? (
-                    <table className="w-full">
+                    <table className="w-full  ">
                         {/* Sticky Header */}
-                        <thead className="bg-gradient-to-r from-emerald-400 to-emerald-600 sticky top-0 z-10 shadow-sm">
+                        <thead className="bg-gradient-to-r from-emerald-400 to-emerald-600  sticky top-0 z-10 shadow-sm">
                             <tr>
                                 {Object.keys(rows[0])
                                     .filter(key => key !== '_id' && key !== "datasetId" && key !== "__v")
                                     .map((col) => (
                                         <th key={col} className="px-6 py-4 text-left text-sm font-bold text-white uppercase tracking-wider border-b-2 border-emerald-300">
-                                            <div className='flex justify-center items-center'>
-                                                <div>
+                                            <div className='flex  justify-center items-center'>
+                                                <div className='relative z-10'>
                                                     <EllipsisVertical onClick={() => handleSortBox(col)} />
-                                                    {(sortBox.key === col && sortBox.open === 1) && (<div className={``}>
-                                                        <h1>Hello</h1>
-                                                    </div>)}
+                                                    {(sortBox.key === col && sortBox.open === 1) && (
+                                                        <div className={'absolute left-0 top-full mt-2 z-20 cursor-pointer ml-2   bg-white/50 backdrop-blur-sm border-2 border-dashed border-t-emerald-700 border-emerald-400  text-emerald-400 p-5 rounded-md'}>
+                                                            <label className='flex justify-center items-center'>
+                                                                <input
+                                                                    type='radio'
+                                                                    name="option"
+                                                                    value="ascending"
+                                                                    checked={selectedOption === "ascending"}
+                                                                    onChange={(e) => { setSelectedOption(e.target.value) }}
+                                                                />
+                                                                <span className='ml-2 mb-5 px-2 py-1 rounded-md bg-slate-700'>Ascending</span>
+                                                            </label>
+                                                            <label className='flex justify-center items-center'>
+                                                                <input
+                                                                    type='radio'
+                                                                    name="option"
+                                                                    value="decending"
+                                                                    checked={selectedOption === "decending"}
+                                                                    onChange={(e) => { setSelectedOption(e.target.value) }}
+                                                                />
+                                                                <span className='ml-2 px-2 py-1 rounded-md bg-slate-700'>Decending</span>
+                                                            </label>
+                                                            <button onClick={() => handleSortApply(col)} className='bg-gradient-to-r cursor-pointer transition duration-300 hover:scale-105 from-emerald-400 to-emerald-600 text-white rounded-md mt-3  p-2'>Apply</button>
+                                                        </div>)}
                                                 </div>
                                                 <span>
                                                     {col.replace(/([A-Z])/g, ' $1').trim()} {/* Format camelCase */}
