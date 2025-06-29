@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import Columnedit from './Columnedit';
-import { ArrowUpNarrowWide } from 'lucide-react';
-import { ArrowDownNarrowWide } from 'lucide-react';
 import { EllipsisVertical } from 'lucide-react';
+import Portal from './Portal';
 
 
 function DataTable({ datasetId }) {
@@ -11,10 +10,12 @@ function DataTable({ datasetId }) {
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [currentDatasetId, setCurrentDatasetId] = useState(null);
+    const [sortCounter, setSortCounter] = useState(0);
     const [appliedSort, setAppliedSort] = useState({});
 
     const [sortBox, setSortBox] = useState({});
     const [selectedOption, setSelectedOption] = useState('')
+    const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
 
     const tableRef = useRef(null);
 
@@ -63,9 +64,9 @@ function DataTable({ datasetId }) {
             console.log('Fetching data for dataset:', datasetId, 'page:', page);
             fetchRows();
         }
-    }, [datasetId, page, appliedSort.key, appliedSort.sort]);
+    }, [datasetId, page, appliedSort.key, appliedSort.sort, sortCounter]);
 
-    function handleColumnDelete() {
+    function handleColumnUpdate() { //delete/update handle
         setRows([]);
         setPage(1);
         setHasMore(true);
@@ -81,14 +82,20 @@ function DataTable({ datasetId }) {
             setPage(prev => prev + 1);
         }
     }
-    function handleSortBox(colkey) {
+    function handleSortBox(colkey, event) {
+        // Get the button element that was clicked
+        const button = event.currentTarget;
+        const rect = button.getBoundingClientRect();
+
+        // Calculate position relative to viewport
+        const top = rect.bottom + 5;
+        const left = rect.left;
 
         if (sortBox.key === colkey) {
             setSortBox((prev) => ({
                 ...prev,
                 open: prev.open ? 0 : 1,
             }));
-
         } else {
             setSortBox((prev) => ({
                 ...prev,
@@ -97,7 +104,15 @@ function DataTable({ datasetId }) {
             }))
         }
 
+        setDropdownPosition({ top, left });
         console.log(sortBox)
+    }
+
+    const handleChange = () => {
+        setRows([]);
+        setPage(1);
+        setHasMore(true);
+        setLoading(false);
     }
 
     function handleSortApply(col) {
@@ -108,11 +123,14 @@ function DataTable({ datasetId }) {
             });
         }
         console.log("applied")
-        setRows([]);
-        setPage(1);
-        setHasMore(true);
-        setLoading(false);
 
+
+        setSortCounter(prev => prev + 1);
+        handleChange()
+        setSortBox((prev) => ({
+            ...prev,
+            open: !prev
+        }));
     }
 
     return (
@@ -129,8 +147,8 @@ function DataTable({ datasetId }) {
             <div
                 ref={tableRef}
                 onScroll={handleScroll}
-                className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-x-scroll overflow-visible"
-                style={{ height: "500px", overflowY: "auto" }}
+                className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-visible overflow-y-auto"
+                style={{ height: "500px" }}
             >
                 {rows.length > 0 ? (
                     <table className="w-full  ">
@@ -143,31 +161,44 @@ function DataTable({ datasetId }) {
                                         <th key={col} className="px-6 py-4 text-left text-sm font-bold text-white uppercase tracking-wider border-b-2 border-emerald-300">
                                             <div className='flex  justify-center items-center'>
                                                 <div className='relative z-10'>
-                                                    <EllipsisVertical onClick={() => handleSortBox(col)} />
+                                                    <EllipsisVertical className='cursor-pointer transition duration-400  focus:text-emerald-800 hover:scale-115 hover:text-emerald-800' onClick={(event) => handleSortBox(col, event)} />
                                                     {(sortBox.key === col && sortBox.open === 1) && (
-                                                        <div className={'absolute left-0 top-full mt-2 z-20 cursor-pointer ml-2   bg-white/50 backdrop-blur-sm border-2 border-dashed border-t-emerald-700 border-emerald-400  text-emerald-400 p-5 rounded-md'}>
-                                                            <label className='flex justify-center items-center'>
-                                                                <input
-                                                                    type='radio'
-                                                                    name="option"
-                                                                    value="ascending"
-                                                                    checked={selectedOption === "ascending"}
-                                                                    onChange={(e) => { setSelectedOption(e.target.value) }}
-                                                                />
-                                                                <span className='ml-2 mb-5 px-2 py-1 rounded-md bg-slate-700'>Ascending</span>
-                                                            </label>
-                                                            <label className='flex justify-center items-center'>
-                                                                <input
-                                                                    type='radio'
-                                                                    name="option"
-                                                                    value="decending"
-                                                                    checked={selectedOption === "decending"}
-                                                                    onChange={(e) => { setSelectedOption(e.target.value) }}
-                                                                />
-                                                                <span className='ml-2 px-2 py-1 rounded-md bg-slate-700'>Decending</span>
-                                                            </label>
-                                                            <button onClick={() => handleSortApply(col)} className='bg-gradient-to-r cursor-pointer transition duration-300 hover:scale-105 from-emerald-400 to-emerald-600 text-white rounded-md mt-3  p-2'>Apply</button>
-                                                        </div>)}
+                                                        <Portal>
+                                                            <div
+                                                                className='fixed flex z-50 cursor-pointer bg-white/50 backdrop-blur-sm border-2 border-dashed border-t-emerald-700 border-emerald-400 text-emerald-400 p-5 rounded-md'
+                                                                style={{
+                                                                    top: dropdownPosition.top,
+                                                                    left: dropdownPosition.left,
+                                                                }}
+                                                            >
+                                                                <div className={'   cursor-pointer ml-2 border-r-emerald-800 mr-2  '}>
+                                                                    <label className='flex justify-center items-center'>
+                                                                        <input
+                                                                            type='radio'
+                                                                            name="option"
+                                                                            value="ascending"
+                                                                            checked={selectedOption === "ascending"}
+                                                                            onChange={(e) => { setSelectedOption(e.target.value) }}
+                                                                        />
+                                                                        <span className='ml-2 mb-5 px-2 py-1 rounded-md bg-slate-700'>Ascending</span>
+                                                                    </label>
+                                                                    <label className='flex justify-center items-center'>
+                                                                        <input
+                                                                            type='radio'
+                                                                            name="option"
+                                                                            value="decending"
+                                                                            checked={selectedOption === "decending"}
+                                                                            onChange={(e) => { setSelectedOption(e.target.value) }}
+                                                                        />
+                                                                        <span className='ml-2 px-2 py-1 rounded-md bg-slate-700'>Decending</span>
+                                                                    </label>
+                                                                    <button onClick={() => handleSortApply(col)} className='bg-gradient-to-r cursor-pointer transition duration-300 hover:scale-105 from-emerald-400 to-emerald-600 text-white rounded-md mt-3  p-2'>Apply</button>
+                                                                </div>
+                                                                <div>
+                                                                    <Columnedit onColumnUpdate={handleColumnUpdate} datasetId={datasetId} col={col} />
+                                                                </div>
+                                                            </div>
+                                                        </Portal>)}
                                                 </div>
                                                 <span>
                                                     {col.replace(/([A-Z])/g, ' $1').trim()} {/* Format camelCase */}
@@ -249,10 +280,7 @@ function DataTable({ datasetId }) {
                 </div>
             )}
 
-            {rows &&
 
-                <Columnedit rows={rows} onColumnDelete={handleColumnDelete} />
-            }
         </div>
     )
 }

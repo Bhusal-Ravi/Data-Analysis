@@ -13,7 +13,7 @@ function Navbar() {
         setIsMenuOpen(!isMenuOpen)
     }
     return (
-        <div className='bg-gradient-to-r fixed top-0 left-0 right-0 z-30 from-emerald-400 to-emerald-600 border-b-2 border-b-green-800 shadow-md px-6 py-4 shadow-md'>
+        <div className='bg-gradient-to-r fixed top-0 left-0 right-0 z-30 from-emerald-500 to-emerald-700 border-b-2 border-b-green-800 shadow-md px-6 py-4 shadow-md'>
             <div className='flex justify-between items-center'>
                 <div className='flex items-center '>
                     <div className='flex items-center justify-center bg-white/20 rounded-lg text-white py-2 px-4 backdrop-blur-sm'>
@@ -35,7 +35,7 @@ function Navbar() {
                         src='/dataanalysisw.png'
                         alt="Data Analysis Logo"
                     />
-                    <h1 className='text-2xl font-bold text-white '>Data Analysis</h1>
+                    <h1 className='text-2xl font-bold text-white'>Data Analysis</h1>
                 </div>
 
                 <div>
