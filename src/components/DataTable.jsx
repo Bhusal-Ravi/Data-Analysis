@@ -24,14 +24,15 @@ function DataTable({ datasetId }) {
 
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5001/api/datasets/${datasetId}/rows?page=${page}&limit=50&sort=${sortBox.key}&order=${appliedSort.sort}`);
+            const sortParam = appliedSort.key ? `&sort=${appliedSort.key}&order=${appliedSort.sort}` : '';
+            const response = await fetch(`http://localhost:5001/api/datasets/${datasetId}/rows?page=${page}&limit=50${sortParam}`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
             const newRows = await response.json();
-            console.log('Received rows:', newRows.length);
+            console.log('Received rows:', newRows.length, 'for page:', page);
 
             setRows((prev) => [...prev, ...newRows]);
             setHasMore(newRows.length === 50);
@@ -54,7 +55,7 @@ function DataTable({ datasetId }) {
             setLoading(false);
             setSortBox({});
             setSelectedOption('');
-            setAppliedSort({});
+            setAppliedSort({ key: '', sort: '' });
         }
     }, [datasetId, currentDatasetId]);
 
@@ -64,14 +65,26 @@ function DataTable({ datasetId }) {
             console.log('Fetching data for dataset:', datasetId, 'page:', page);
             fetchRows();
         }
-    }, [datasetId, page, appliedSort.key, appliedSort.sort, sortCounter]);
+    }, [datasetId, page, sortCounter]);
+
+
+    useEffect(() => {
+        if (datasetId && appliedSort.key) {
+            console.log('Sort changed, resetting pagination');
+            setRows([]);
+            setPage(1);
+            setHasMore(true);
+            setLoading(false);
+        }
+    }, [appliedSort.key, appliedSort.sort]);
 
     function handleColumnUpdate() { //delete/update handle
         setRows([]);
         setPage(1);
         setHasMore(true);
         setLoading(false);
-        fetchRows();
+        fetchRows()
+        
     }
 
     function handleScroll() {
@@ -108,13 +121,6 @@ function DataTable({ datasetId }) {
         console.log(sortBox)
     }
 
-    const handleChange = () => {
-        setRows([]);
-        setPage(1);
-        setHasMore(true);
-        setLoading(false);
-    }
-
     function handleSortApply(col) {
         if (col === sortBox.key) {
             setAppliedSort({
@@ -124,9 +130,7 @@ function DataTable({ datasetId }) {
         }
         console.log("applied")
 
-
         setSortCounter(prev => prev + 1);
-        handleChange()
         setSortBox((prev) => ({
             ...prev,
             open: !prev
@@ -186,11 +190,11 @@ function DataTable({ datasetId }) {
                                                                         <input
                                                                             type='radio'
                                                                             name="option"
-                                                                            value="decending"
-                                                                            checked={selectedOption === "decending"}
+                                                                            value="descending"
+                                                                            checked={selectedOption === "descending"}
                                                                             onChange={(e) => { setSelectedOption(e.target.value) }}
                                                                         />
-                                                                        <span className='ml-2 px-2 py-1 rounded-md bg-slate-700'>Decending</span>
+                                                                        <span className='ml-2 px-2 py-1 rounded-md bg-slate-700'>Descending</span>
                                                                     </label>
                                                                     <button onClick={() => handleSortApply(col)} className='bg-gradient-to-r cursor-pointer transition duration-300 hover:scale-105 from-emerald-400 to-emerald-600 text-white rounded-md mt-3  p-2'>Apply</button>
                                                                 </div>
