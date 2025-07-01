@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState, useCallback } from 'react'
 import Columnedit from './Columnedit';
 import { EllipsisVertical } from 'lucide-react';
 import Portal from './Portal';
+import { Pencil } from 'lucide-react';
+import Rowedit from './Rowedit';
 
 
 function DataTable({ datasetId }) {
@@ -16,6 +18,9 @@ function DataTable({ datasetId }) {
     const [sortBox, setSortBox] = useState({});
     const [selectedOption, setSelectedOption] = useState('')
     const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+    const [rowId, setRowId] = useState(null);
+    const [roweditMode, setrowEditMode] = useState(false)
+
 
     const tableRef = useRef(null);
 
@@ -43,6 +48,11 @@ function DataTable({ datasetId }) {
             setLoading(false);
         }
     }, [datasetId, page, appliedSort.key, appliedSort.sort]);
+
+    //handle row edit 
+    function handlerowEdit(id) {
+        setRowId(id)
+    }
 
     // Handle dataset changes
     useEffect(() => {
@@ -84,7 +94,7 @@ function DataTable({ datasetId }) {
         setHasMore(true);
         setLoading(false);
         fetchRows()
-        
+
     }
 
     function handleScroll() {
@@ -210,6 +220,7 @@ function DataTable({ datasetId }) {
                                             </div>
                                         </th>
                                     ))}
+                                <th className='text-white '><span className='m-5'>Edit</span></th>
                             </tr>
                         </thead>
 
@@ -220,6 +231,7 @@ function DataTable({ datasetId }) {
                                     key={i}
                                     className="hover:bg-gradient-to-r hover:from-emerald-50 hover:to-emerald-100 transition-all duration-200 group"
                                 >
+
                                     {Object.entries(row)
                                         .filter(([key]) => key !== "_id" && key !== "datasetId" && key !== "__v")
                                         .map(([key, val], j) => (
@@ -230,8 +242,18 @@ function DataTable({ datasetId }) {
                                                 <div className="max-w-xs truncate" title={val}>
                                                     {val || '-'}
                                                 </div>
+
                                             </td>
+
                                         ))}
+                                    <td className='flex justify-center items-center mt-5'>
+                                        {rowId === row._id ?
+                                            (<Rowedit rowId={row._id} />)
+                                            :
+                                            (<button onClick={() => handlerowEdit(row._id)}><Pencil /></button>)
+                                        }
+
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
