@@ -20,6 +20,7 @@ function DataTable({ datasetId }) {
     const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
     const [rowId, setRowId] = useState(null);
     const [roweditMode, setrowEditMode] = useState(false)
+    const [editRowValue, setEditRowValue] = useState({})
 
 
     const tableRef = useRef(null);
@@ -50,8 +51,10 @@ function DataTable({ datasetId }) {
     }, [datasetId, page, appliedSort.key, appliedSort.sort]);
 
     //handle row edit 
-    function handlerowEdit(id) {
-        setRowId(id)
+    function handlerowEdit(edrow) {
+        setRowId(edrow._id)
+        setEditRowValue(edrow)
+
     }
 
     // Handle dataset changes
@@ -220,7 +223,9 @@ function DataTable({ datasetId }) {
                                             </div>
                                         </th>
                                     ))}
+
                                 <th className='text-white '><span className='m-5'>Edit</span></th>
+
                             </tr>
                         </thead>
 
@@ -231,26 +236,31 @@ function DataTable({ datasetId }) {
                                     key={i}
                                     className="hover:bg-gradient-to-r hover:from-emerald-50 hover:to-emerald-100 transition-all duration-200 group"
                                 >
+                                    {rowId === row._id && editRowValue ? (<Rowedit editRowValue={editRowValue} />) :
 
-                                    {Object.entries(row)
-                                        .filter(([key]) => key !== "_id" && key !== "datasetId" && key !== "__v")
-                                        .map(([key, val], j) => (
-                                            <td
-                                                key={key}
-                                                className="px-6 py-4 text-sm text-gray-900 border-b border-gray-100 group-hover:text-gray-800"
-                                            >
-                                                <div className="max-w-xs truncate" title={val}>
-                                                    {val || '-'}
-                                                </div>
+                                        (Object.entries(row)
+                                            .filter(([key]) => key !== "_id" && key !== "datasetId" && key !== "__v")
+                                            .map(([key, val], j) => (
+                                                <td
 
-                                            </td>
 
-                                        ))}
+                                                    key={key}
+                                                    className="px-6 py-4 text-sm text-gray-900 border-b border-gray-100 group-hover:text-gray-800"
+                                                >
+
+                                                    <div className="max-w-xs truncate" title={val}>
+                                                        {val || '-'}
+                                                    </div>
+
+                                                </td>
+
+                                            )))}
+
                                     <td className='flex justify-center items-center mt-5'>
-                                        {rowId === row._id ?
-                                            (<Rowedit rowId={row._id} />)
+                                        {rowId === row._id && editRowValue ?
+                                            (<div>Edit Mode</div>)
                                             :
-                                            (<button onClick={() => handlerowEdit(row._id)}><Pencil /></button>)
+                                            (<button onClick={() => handlerowEdit(row)}><Pencil /></button>)
                                         }
 
                                     </td>
