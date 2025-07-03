@@ -100,6 +100,21 @@ function DataTable({ datasetId }) {
 
     }
 
+    function rowUpdate() {
+        setRows([]);
+        setPage(1);
+        setHasMore(true);
+        setLoading(false);
+        fetchRows()
+        setRowId();
+        setEditRowValue({});
+    }
+
+    function handleRowToggle() {
+        setRowId();
+        setEditRowValue({});
+    }
+
     function handleScroll() {
         const e = tableRef.current;
         if (!e || loading || !hasMore) return;
@@ -236,7 +251,7 @@ function DataTable({ datasetId }) {
                                     key={i}
                                     className="hover:bg-gradient-to-r hover:from-emerald-50 hover:to-emerald-100 transition-all duration-200 group"
                                 >
-                                    {rowId === row._id && editRowValue ? (<Rowedit editRowValue={editRowValue} />) :
+                                    {rowId === row._id && editRowValue ? (<Rowedit rowUpdate={rowUpdate} editRowValue={editRowValue} />) :
 
                                         (Object.entries(row)
                                             .filter(([key]) => key !== "_id" && key !== "datasetId" && key !== "__v")
@@ -256,9 +271,9 @@ function DataTable({ datasetId }) {
 
                                             )))}
 
-                                    <td className='flex justify-center items-center mt-5'>
+                                    <td className='flex  justify-center items-center mt-5'>
                                         {rowId === row._id && editRowValue ?
-                                            (<div>Edit Mode</div>)
+                                            (<button onClick={handleRowToggle}>Edit Mode</button>)
                                             :
                                             (<button onClick={() => handlerowEdit(row)}><Pencil /></button>)
                                         }
