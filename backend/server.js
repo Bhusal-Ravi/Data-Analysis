@@ -12,6 +12,7 @@ const DatasetRow= require('./uploads/datasetRoutes')
 const userdataRoute= require('./uploads/userdata')
 const columndeleteRoute= require('./uploads/columndelete')
 const rowUpdateRoute= require('./uploads/rowUpdate')
+const aisummaryRoute= require('./uploads/aisummary')
 
 app.use(
     session({
@@ -39,7 +40,8 @@ app.use('/api',uploadRoute);
 app.use('/api',DatasetRow);
 app.use('/api',userdataRoute);
 app.use('/api',columndeleteRoute);
-app.use('/api',rowUpdateRoute)
+app.use('/api',rowUpdateRoute);
+app.use('/api',aisummaryRoute);
 
 connectdb();
 

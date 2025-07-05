@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { Save } from 'lucide-react';
 
 function Rowedit({ editRowValue, rowUpdate }) {
     const [id, setId] = useState(null);
@@ -54,12 +55,12 @@ function Rowedit({ editRowValue, rowUpdate }) {
                 .map(([key, val], i) => (
                     <td
                         key={key}
-                        className="px-6 py-4 text-sm text-gray-900 border-b border-gray-100 group-hover:text-gray-800"
+                        className="px-6 py-4 text-sm text-gray-900 border-b  border-gray-100 group-hover:text-gray-800"
                     >
                         <input className='p-2' value={editedValue[key] || ''} onChange={(e) => handleChange(e, key)} placeholder={`${val}`} />
                     </td>
                 ))}
-            <td><button onClick={handleSave} className='bg-gradient-to-r  from-emerald-400 to-emerald-600 transition ease-in-out duration-300 hover:scale-110 px-3 py-1 mt-2 rounded-md'>Save</button></td>
+            <td><button onClick={handleSave} className=' flex  bg-gradient-to-r  from-emerald-400 to-emerald-600 transition ease-in-out duration-300 hover:scale-110 px-3 py-1 mt-2 rounded-md'><span><Save className='mr-2' /></span>Save</button></td>
         </>
     )
 }

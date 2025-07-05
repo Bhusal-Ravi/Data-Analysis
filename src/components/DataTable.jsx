@@ -4,6 +4,8 @@ import { EllipsisVertical } from 'lucide-react';
 import Portal from './Portal';
 import { Pencil } from 'lucide-react';
 import Rowedit from './Rowedit';
+import { Trash2 } from 'lucide-react';
+import AiSummary from './AiSummary';
 
 
 function DataTable({ datasetId }) {
@@ -271,9 +273,9 @@ function DataTable({ datasetId }) {
 
                                             )))}
 
-                                    <td className='flex  justify-center items-center mt-5'>
+                                    <td className='flex  justify-center items-center mt-3'>
                                         {rowId === row._id && editRowValue ?
-                                            (<button onClick={handleRowToggle}>Edit Mode</button>)
+                                            (<button className='bg-gradient-to-r flex  from-rose-400 to-rose-600 text-white transition ease-in-out duration-300 hover:scale-110 px-3 py-1 mt-2 rounded-md' onClick={handleRowToggle}><span> <Trash2 className='mr-2' /> </span>Cancel</button>)
                                             :
                                             (<button onClick={() => handlerowEdit(row)}><Pencil /></button>)
                                         }
@@ -331,7 +333,7 @@ function DataTable({ datasetId }) {
                 </div>
             )}
 
-
+            {rows.length > 0 && <AiSummary id={rows[0].datasetId} />}
         </div>
     )
 }
