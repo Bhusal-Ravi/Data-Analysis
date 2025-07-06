@@ -6,6 +6,7 @@ import { Pencil } from 'lucide-react';
 import Rowedit from './Rowedit';
 import { Trash2 } from 'lucide-react';
 import AiSummary from './AiSummary';
+import CsvDownload from './CsvDownload';
 
 
 function DataTable({ datasetId }) {
@@ -175,6 +176,7 @@ function DataTable({ datasetId }) {
                 <p className="text-sm opacity-90">
                     Showing {rows.length} rows • Scroll down to load more
                 </p>
+                <p className="flex mt-4 items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-400 hover:from-emerald-500 hover:to-emerald-700 text-white font-small  py-2 px-6 rounded-lg  hover:shadow-lg transition-all duration-200">To Edit Scroll the table to right until you see a <Pencil className='ml-2 mr-2 text-slate-700 animate-pulse' /> icon</p>
             </div>
 
             {/* Scrollable Table Container */}
@@ -334,6 +336,7 @@ function DataTable({ datasetId }) {
             )}
 
             {rows.length > 0 && <AiSummary id={rows[0].datasetId} />}
+            {rows.length > 0 && <CsvDownload id={rows[0].datasetId} />}
         </div>
     )
 }

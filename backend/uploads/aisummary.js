@@ -13,7 +13,7 @@ router.get('/aisummary/:id',async(req,res)=>{
     const {id}= req.params;
     const rows= await DatasetRow
                         .find({datasetId:id})
-                        .limit(10)
+                        .limit(30)
                         .lean()
     console.log(rows)
 
@@ -38,11 +38,11 @@ router.get('/aisummary/:id',async(req,res)=>{
     
 
 
-    const prompt= `Here's a sample dataset with (sample of 10 values) with the following columns: ${keys}.\n\nSample rows:\n${data}\n\nPlease summarize what this dataset is about.Give response in a bullet form in points dont put * symbols`
+    const prompt= `The dataset used contains more data but you are provided with only 30 values to avoid rate limit , with the following columns: ${keys}.\n\nSample rows:\n${data}\n\nPlease summarize what this dataset is about.Give response in a bullet form in points (dont put * symbols) rather put (- symbol)`
     
 
 
-   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+   const model = genAI.getGenerativeModel({ model: "gemma-3n-e2b-it" });
     const result= await model.generateContent(prompt);
     const response=  result.response;
     const text= response.text();
