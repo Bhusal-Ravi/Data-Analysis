@@ -176,25 +176,25 @@ function DataTable({ datasetId }) {
                 <p className="text-sm opacity-90">
                     Showing {rows.length} rows • Scroll down to load more
                 </p>
-                <p className="flex mt-4 items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-400 hover:from-emerald-500 hover:to-emerald-700 text-white font-small  py-2 px-6 rounded-lg  hover:shadow-lg transition-all duration-200">To Edit Scroll the table to right until you see a <Pencil className='ml-2 mr-2 text-slate-700 animate-pulse' /> icon</p>
+                <p className="flex mt-4 items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-400 hover:from-emerald-500 hover:to-emerald-700 text-white font-small  py-2 px-6 rounded-lg  hover:shadow-lg transition-all duration-200">Click the <Pencil className='ml-2 mr-2 text-slate-700 animate-pulse' /> icon in the Edit column to modify rows</p>
             </div>
 
             {/* Scrollable Table Container */}
             <div
                 ref={tableRef}
                 onScroll={handleScroll}
-                className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-visible overflow-y-auto"
+                className="bg-white rounded-xl shadow-2xl border border-gray-200 overflow-x-auto overflow-y-auto relative"
                 style={{ height: "500px" }}
             >
                 {rows.length > 0 ? (
-                    <table className="w-full  ">
+                    <table className="w-full min-w-max">
                         {/* Sticky Header */}
-                        <thead className="bg-gradient-to-r from-emerald-400 to-emerald-600  sticky top-0 z-10 shadow-sm">
+                        <thead className="bg-gradient-to-r from-emerald-400 to-emerald-600 sticky top-0 z-10 shadow-sm">
                             <tr>
                                 {Object.keys(rows[0])
                                     .filter(key => key !== '_id' && key !== "datasetId" && key !== "__v")
                                     .map((col) => (
-                                        <th key={col} className="px-6 py-4 text-left text-sm font-bold text-white uppercase tracking-wider border-b-2 border-emerald-300">
+                                        <th key={col} className="px-6 py-4 text-left text-sm font-bold text-white uppercase tracking-wider border-b-2 border-emerald-300 whitespace-nowrap">
                                             <div className='flex  justify-center items-center'>
                                                 <div className='relative z-10'>
                                                     <EllipsisVertical className='cursor-pointer transition duration-400  focus:text-emerald-800 hover:scale-115 hover:text-emerald-800' onClick={(event) => handleSortBox(col, event)} />
@@ -243,7 +243,7 @@ function DataTable({ datasetId }) {
                                         </th>
                                     ))}
 
-                                <th className='text-white '><span className='m-5'>Edit</span></th>
+                                <th className='text-white sticky right-0 bg-gradient-to-r from-emerald-400 to-emerald-600 shadow-lg'><span className='m-5'>Edit</span></th>
 
                             </tr>
                         </thead>
@@ -264,7 +264,7 @@ function DataTable({ datasetId }) {
 
 
                                                     key={key}
-                                                    className="px-6 py-4 text-sm text-gray-900 border-b border-gray-100 group-hover:text-gray-800"
+                                                    className="px-6 py-4 text-sm text-gray-900 border-b border-gray-100 group-hover:text-gray-800 whitespace-nowrap"
                                                 >
 
                                                     <div className="max-w-xs truncate" title={val}>
@@ -275,11 +275,11 @@ function DataTable({ datasetId }) {
 
                                             )))}
 
-                                    <td className='flex  justify-center items-center mt-3'>
+                                    <td className='sticky right-0 bg-white shadow-lg border-l-2 border-emerald-200 flex justify-center items-center py-4 px-6'>
                                         {rowId === row._id && editRowValue ?
-                                            (<button className='bg-gradient-to-r flex  from-rose-400 to-rose-600 text-white transition ease-in-out duration-300 hover:scale-110 px-3 py-1 mt-2 rounded-md' onClick={handleRowToggle}><span> <Trash2 className='mr-2' /> </span>Cancel</button>)
+                                            (<button className='bg-gradient-to-r flex from-rose-400 to-rose-600 text-white transition ease-in-out duration-300 hover:scale-110 px-3 py-2 rounded-md shadow-md hover:shadow-lg' onClick={handleRowToggle}><span> <Trash2 className='mr-2' /> </span>Cancel</button>)
                                             :
-                                            (<button onClick={() => handlerowEdit(row)}><Pencil /></button>)
+                                            (<button onClick={() => handlerowEdit(row)} className='bg-gradient-to-r from-emerald-400 to-emerald-600 text-white p-2 rounded-md shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110'><Pencil className='w-4 h-4' /></button>)
                                         }
 
                                     </td>

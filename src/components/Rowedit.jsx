@@ -55,12 +55,16 @@ function Rowedit({ editRowValue, rowUpdate }) {
                 .map(([key, val], i) => (
                     <td
                         key={key}
-                        className="px-6 py-4 bg-emerald-400/20 text-sm text-gray-900 border-b  border-gray-100 group-hover:text-gray-800"
+                        className="px-6 py-4 bg-emerald-400/20 text-sm text-gray-900 border-b border-gray-100 group-hover:text-gray-800 whitespace-nowrap"
                     >
-                        <input className='p-2 border-1 rounded-md' value={editedValue[key] || ''} onChange={(e) => handleChange(e, key)} placeholder={`${val}`} />
+                        <input className='p-2 border-1 rounded-md w-full max-w-xs' value={editedValue[key] || ''} onChange={(e) => handleChange(e, key)} placeholder={`${val}`} />
                     </td>
                 ))}
-            <td><button onClick={handleSave} className=' flex  bg-gradient-to-r  from-emerald-400 to-emerald-600 transition ease-in-out duration-300 hover:scale-110 px-3 py-1 mt-2 rounded-md'><span><Save className='mr-2' /></span>Save</button></td>
+            <td className='sticky right-0 bg-emerald-400/20 shadow-lg border-l-2 border-emerald-200 flex justify-center items-center py-4 px-6'>
+                <button onClick={handleSave} className='bg-gradient-to-r from-emerald-400 to-emerald-600 text-white transition ease-in-out duration-300 hover:scale-110 px-3 py-2 rounded-md shadow-md hover:shadow-lg flex items-center'>
+                    <span><Save className='mr-2 w-4 h-4' /></span>Save
+                </button>
+            </td>
         </>
     )
 }
