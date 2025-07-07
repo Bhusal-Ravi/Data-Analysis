@@ -33,7 +33,7 @@ function CsvDownload({ id }) {
 
                     <div className="flex flex-col items-center">
                         <button
-                            className="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-400 to-emerald-600 hover:from-emerald-500 hover:to-emerald-700 text-white font-medium py-2 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+                            className="flex cursor-pointer items-center justify-center gap-2 bg-gradient-to-r from-emerald-400 to-emerald-600 hover:from-emerald-500 hover:to-emerald-700 text-white font-medium py-2 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
                             onClick={handleDownload}
                         >
                             <ArrowDownToLine className="w-5 h-5" />
