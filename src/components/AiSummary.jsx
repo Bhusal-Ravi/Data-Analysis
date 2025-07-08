@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { FileText } from 'lucide-react';
 
 function AiSummary({ id }) {
 
     const [aiSummary, setAiSummary] = useState("")
     const [loading, setLoading] = useState(false)
+    const fetchedRef = useRef(false);
 
-    async function summaryStart(idcall) {
+    const summaryStart = useCallback(async () => {
 
         if (loading) return
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5001/api/aisummary/${idcall}`, {
+            const response = await fetch(`http://localhost:5001/api/aisummary/${id}`, {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
@@ -29,19 +30,19 @@ function AiSummary({ id }) {
         } finally {
             setLoading(false);
         }
-    }
+    }, [id])
 
     useEffect(() => {
 
-        if (id) {
-
+        if (id && !fetchedRef.current) {
+            fetchedRef.current = true
             setAiSummary("")
-            summaryStart(id)
+            summaryStart()
 
         }
 
 
-    }, [id])
+    }, [id, summaryStart])
 
     return (
         <div className="w-full max-w-7xl mx-auto mt-8 ">
