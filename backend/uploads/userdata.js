@@ -19,7 +19,7 @@ router.get('/datasetlist',async (req,res)=>{
             uploadedAt: dataset.uploadedAt,
             columns: dataset.columns
         }));
-        console.log(datasetList)
+      
           res.json({ success: true, datasets: datasetList });
 
     

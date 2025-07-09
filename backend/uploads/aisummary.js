@@ -9,13 +9,13 @@ const router= express.Router();
 
 router.get('/aisummary/:id',async(req,res)=>{
   try{
-    console.log("hello")
+   
     const {id}= req.params;
     const rows= await DatasetRow
                         .find({datasetId:id})
                         .limit(30)
                         .lean()
-    console.log(rows)
+ 
 
     const keys= Object.keys(rows[0]).filter((key)=>key!='_id' && key !='datasetId' && key !='__v')
     
@@ -46,7 +46,7 @@ router.get('/aisummary/:id',async(req,res)=>{
     const result= await model.generateContent(prompt);
     const response=  result.response;
     const text= response.text();
-    console.log(text)
+    
 
     if(text.length>0){
      res.json({ 
