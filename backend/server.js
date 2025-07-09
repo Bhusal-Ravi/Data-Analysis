@@ -14,6 +14,7 @@ const columndeleteRoute= require('./uploads/columndelete')
 const rowUpdateRoute= require('./uploads/rowUpdate')
 const aisummaryRoute= require('./uploads/aisummary')
 const downloadcsvRoute= require('./uploads/downloadcsv')
+const aigraphRoute= require('./uploads/aigraph')
 
 app.use(
     session({
@@ -44,6 +45,7 @@ app.use('/api',columndeleteRoute);
 app.use('/api',rowUpdateRoute);
 app.use('/api',aisummaryRoute);
 app.use('/api',downloadcsvRoute)
+app.use('/api',aigraphRoute)
 
 connectdb();
 

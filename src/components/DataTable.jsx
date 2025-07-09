@@ -7,6 +7,7 @@ import Rowedit from './Rowedit';
 import { Trash2 } from 'lucide-react';
 import AiSummary from './AiSummary';
 import CsvDownload from './CsvDownload';
+import AiGraph from './AiGraph';
 
 
 function DataTable({ datasetId }) {
@@ -337,6 +338,7 @@ function DataTable({ datasetId }) {
 
             {rows.length > 0 && <AiSummary id={rows[0].datasetId} />}
             {rows.length > 0 && <CsvDownload id={rows[0].datasetId} />}
+            {rows.length > 0 && <AiGraph id={rows[0].datasetId} />}
         </div>
     )
 }
