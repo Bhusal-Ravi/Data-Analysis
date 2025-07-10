@@ -58,24 +58,26 @@ router.get('/aigraph/:id',async(req,res)=>{
                         2. Choose the most appropriate columns for x and y axes for each chart
                         3. Keep description under 20 words
                         4. For PieChart, use the category column as x and value column as y
-                        5. Provide 2-4 different chart recommendations
+                        5. Provide 2-4 different chart recommendations. No more than 4 graphs
                         6. Order recommendations by effectiveness (best first)
-                        7. Return only valid JSON, without code blocks . Do not include any explanation or text before/after the JSON.
+                        7. Return only valid JSON, without any markdown formatting, code blocks, or additional text. The response must start with { and end with }.
                         8. Each recommendation should use different chart types or different column combinations
 
                         Dataset sample:
                         ${promptData}
                         `;
 
-    const model = genAI.getGenerativeModel({ model: "gemma-3n-e2b-it" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite-preview-06-17" });
         const result = await model.generateContent(prompt);
         const response =  result.response;
         const text = response.text();
-        console.log(text)
+        
+     
 
         
         try {
-            const chartRecommendation = JSON.parse(text);
+            const filter= text.replace(/^```json|```$/g,'').trim();
+            const chartRecommendation = JSON.parse(filter);
             res.json({
                 success: true,
                 data: chartRecommendation,
