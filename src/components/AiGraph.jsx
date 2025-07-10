@@ -1,9 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
+import {
+    LineChart, BarChart, AreaChart, PieChart, ScatterChart, RadarChart,
+    RadialBarChart, ComposedChart, Treemap,
+    XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+    Line, Bar, Area, Pie, Cell, Scatter, Radar, RadialBar
+} from 'recharts';
+import GraphSelect from './GraphSelect';
 
 function AiGraph({ id }) {
     const fetchedRef = useRef(false);
 
     const [aiGraph, setAiGraph] = useState([])
+    const [plotData, setPlotData] = useState([])
 
     async function graphsuggestion(idcall) {
         try {
@@ -33,7 +41,10 @@ function AiGraph({ id }) {
                 body: JSON.stringify(recommendations)
             })
             const result = await response.json();
-            console.log(result)
+            if (result.length > 0) {
+                setPlotData(result);
+            }
+
         } catch (error) {
             console.log("Error in Ai Graph Data fetch", error);
         }
@@ -56,7 +67,9 @@ function AiGraph({ id }) {
 
 
     return (
-        <div>AiGraph</div>
+        <div>
+            <GraphSelect plotData={plotData} aiGraph={aiGraph} />
+        </div>
     )
 }
 

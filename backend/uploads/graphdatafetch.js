@@ -7,23 +7,35 @@ router.post('/graphdata/:id',async(req,res)=>{
     try{
         const {id}= req.params;
         const recommendation= req.body;
-        console.log("graphdata",recommendation,id)
+       
 
 
         const keys= recommendation.reduce((acc,rec)=>{
-            if(!access.includes(rec.x)){
+            if(!acc.includes(rec.x)){
                 acc.push(rec.x)
             }
-            if(!access.includes(rec.y)){
+            if(!acc.includes(rec.y)){
                 acc.push(rec.y)
             }
             return acc;
         },[])
 
-        console.log(keys)
+        const graphdata= await DatasetRow.find({datasetId:id})
+                                        .select(keys.join(' ') + ' -_id')
+                                        .limit(50);
+                         
+
+        console.log("graphdata",graphdata)
+
+        if(graphdata.length>0){
+            res.status(200).json(graphdata)
+        }
+        else{
+            res.status(500).json("Couldnt find the dataset")
+        }
         
     }catch(error){
-
+        console.error(error);
     }
 })
 
