@@ -11,18 +11,27 @@ router.post('/graphdata/:id',async(req,res)=>{
 
 
         const keys= recommendation.reduce((acc,rec)=>{
-            if(!acc.includes(rec.x)){
-                acc.push(rec.x)
+           const xKey = rec.x.trim();
+            const yKey = rec.y.trim();
+            
+            if (!acc.includes(xKey)) {
+                acc.push(xKey);
             }
-            if(!acc.includes(rec.y)){
-                acc.push(rec.y)
+            if (!acc.includes(yKey)) {
+                acc.push(yKey);
             }
             return acc;
         },[])
+        
+             const selectedObject= {};
+             keys.forEach(key=>{
+                selectedObject[key]=1;
+             });
+              selectedObject._id = 0;
 
-        const graphdata= await DatasetRow.find({datasetId:id})
-                                        .select(keys.join(' ') + ' -_id')
-                                        .limit(50);
+        const graphdata = await DatasetRow.find({ datasetId: id })
+            .select(selectedObject)
+            .limit(30);
                          
 
         console.log("graphdata",graphdata)

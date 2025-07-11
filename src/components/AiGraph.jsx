@@ -1,10 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {
-    LineChart, BarChart, AreaChart, PieChart, ScatterChart, RadarChart,
-    RadialBarChart, ComposedChart, Treemap,
-    XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-    Line, Bar, Area, Pie, Cell, Scatter, Radar, RadialBar
-} from 'recharts';
+
 import GraphSelect from './GraphSelect';
 
 function AiGraph({ id }) {
@@ -68,7 +63,13 @@ function AiGraph({ id }) {
 
     return (
         <div>
-            <GraphSelect plotData={plotData} aiGraph={aiGraph} />
+            {plotData.length > 0 && aiGraph?.recommendations.length > 0 &&
+                aiGraph.recommendations.map((config, index) => (
+
+                    < GraphSelect key={index} plotData={plotData} aiGraph={config} />)
+
+                )
+            }
         </div>
     )
 }

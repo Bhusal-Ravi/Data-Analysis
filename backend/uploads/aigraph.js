@@ -54,14 +54,15 @@ router.get('/aigraph/:id',async(req,res)=>{
                         }
 
                         Rules:
-                        1. Only use Recharts component names (LineChart, BarChart, PieChart, ScatterChart, AreaChart, RadarChart)
+                        1. Only use Recharts component names for example like (LineChart, BarChart, ScatterChart, AreaChart, RadarChart)
                         2. Choose the most appropriate columns for x and y axes for each chart
                         3. Keep description under 20 words
-                        4. For PieChart, use the category column as x and value column as y
+                        4. For PieChart, use the category column as x and value column as y but avoid pie chart as much as possible
                         5. Provide 2-4 different chart recommendations. No more than 4 graphs
                         6. Order recommendations by effectiveness (best first)
                         7. Return only valid JSON, without any markdown formatting, code blocks, or additional text. The response must start with { and end with }.
                         8. Each recommendation should use different chart types or different column combinations
+                        9. Do not provide same type of graph twice (For example dont recommed scatter chart twice)
 
                         Dataset sample:
                         ${promptData}
