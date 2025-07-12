@@ -4,13 +4,25 @@ import { UserContext } from './AuthContext'
 import { User } from 'lucide-react';
 import { Menu } from 'lucide-react';
 import { X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
     const { user } = useContext(UserContext)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [imageError, setImageError] = useState(false)
+    const navigate = useNavigate();
     function handleMenu() {
         setIsMenuOpen(!isMenuOpen)
+    }
+
+    function handleClick(option) {
+        if (option === "features") {
+            navigate('/features')
+        } else if (option === "pricing") {
+            navigate('/pricing')
+        } else {
+            navigate('/about')
+        }
     }
     return (
         <div className='bg-gradient-to-r fixed top-0 left-0 right-0 z-30 from-emerald-500 to-emerald-700 border-b-2 border-b-green-800 shadow-md px-4 sm:px-6 lg:px-8 xl:px-12 py-3 sm:py-4 lg:py-5 shadow-md'>
@@ -35,7 +47,11 @@ function Navbar() {
                     />
                     <h1 className='text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white ml-2 sm:ml-3 lg:ml-4'>Data Analysis</h1>
                 </div>
-
+                <div className='hidden sm:flex items-center space-x-6 lg:space-x-8 text-white/90 text-sm lg:text-base font-medium'>
+                    <button onClick={() => handleClick("features")} className='hover:text-white cursor-pointer transition-colors'>Features</button>
+                    <button onClick={() => handleClick("pricing")} className='hover:text-white cursor-pointer transition-colors'>Pricing</button>
+                    <button onClick={() => handleClick("about")} className='hover:text-white cursor-pointer transition-colors'>About</button>
+                </div>
                 <div>
                     {isMenuOpen ? (<X size={20} className='text-white sm:w-6 sm:h-6 lg:w-8 lg:h-8' onClick={handleMenu} />) : (<Menu size={20} className='text-white sm:w-6 sm:h-6 lg:w-8 lg:h-8' onClick={handleMenu} />)}
 
