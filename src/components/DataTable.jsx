@@ -172,7 +172,7 @@ function DataTable({ datasetId }) {
     return (
         <div className="w-full max-w-7xl mx-auto mt-8">
             {/* Stats Header */}
-            <div className="mb-4 p-4 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-lg text-white shadow-lg">
+            <div className="mb-4 p-4 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-lg text-slate-800 shadow-lg">
                 <h3 className="text-lg font-bold">Dataset View</h3>
                 <p className="text-sm opacity-90">
                     Showing {rows.length} rows • Scroll down to load more

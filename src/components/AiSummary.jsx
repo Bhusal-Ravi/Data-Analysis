@@ -45,9 +45,9 @@ function AiSummary({ id }) {
     }, [id, summaryStart])
 
     return (
-        <div className="w-full max-w-7xl mx-auto mt-8 ">
+        <div className="w-full max-w-7xl mx-auto mt-8 bg-gradient-to-br from-gray-900 to-emerald-600  p-10 rounded-xl ">
 
-            <div className="mb-4 p-4 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-lg text-white shadow-lg">
+            <div className="mb-4 p-4 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-lg text-slate-800 shadow-lg">
                 <h3 className="text-lg font-bold">AI Summary</h3>
                 <p className="text-sm opacity-90">
                     Presenting you a short summary of the DataSet
