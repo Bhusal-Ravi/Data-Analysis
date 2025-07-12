@@ -57,9 +57,9 @@ function GraphSelect({ plotData, aiGraph }) {
     if (!ChartComponent) return <div>Unsupported chart type: {graph}</div>;
 
     return (
-        <div className="bg-emerald-50 rounded-xl shadow-md hover:shadow-lg p-6 mt-6 border border-emerald-100 transition-all duration-300">
-            <h3 className="text-emerald-800 font-semibold text-lg mb-4">{aiGraph.description}</h3>
-            <div style={{ width: '100%', height: 400 }}>
+        <div className="bg-emerald-50 rounded-xl shadow-md hover:shadow-lg p-4 sm:p-5 lg:p-6 mt-4 sm:mt-5 lg:mt-6 border border-emerald-100 transition-all duration-300">
+            <h3 className="text-emerald-800 font-semibold text-base sm:text-lg lg:text-xl mb-3 sm:mb-4">{aiGraph.description}</h3>
+            <div style={{ width: '100%', height: '300px', minHeight: '300px' }}>
                 <ResponsiveContainer>
                     {graph === "PieChart" ? (
                         <PieChart>

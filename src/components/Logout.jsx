@@ -31,8 +31,8 @@ function Logout() {
     }
     return (
         <div>
-            <button className='bg-gradient-to-r from-teal-400 to-teal-600 rounded-md  py-2 px-3 hover:bg-red-400 cursor-pointer  font-semibold' onClick={handleLogout}><span >Logout</span></button>
-            {logoutError && (<p>{logoutError}</p>)}
+            <button className='bg-gradient-to-r from-teal-400 to-teal-600 rounded-md py-2 px-3 sm:px-4 lg:px-5 hover:bg-red-400 cursor-pointer font-semibold text-xs sm:text-sm lg:text-base transition-all duration-200' onClick={handleLogout}><span>Logout</span></button>
+            {logoutError && (<p className='text-xs sm:text-sm lg:text-base text-red-600 mt-2'>{logoutError}</p>)}
         </div>
     )
 }
