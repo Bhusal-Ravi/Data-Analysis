@@ -13,7 +13,7 @@ router.get('/google',
 //Google redirects after callback
 router.get('/google/callback',
     passport.authenticate('google',{   //passport authenticate runs the google strategy (NOTE)
-        successRedirect:process.env.CLIENT_URL || 'http://localhost:5175',
+        successRedirect:process.env.CLIENT_URL || 'https://data-analysis-cjd5.vercel.app',
         failureRedirect:'/auth/login/failed'
     })
 ,(req,res)=>{
