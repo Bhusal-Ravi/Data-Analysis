@@ -15,7 +15,7 @@ function AiGraph({ id }) {
 
     async function graphsuggestion(idcall) {
         try {
-            const response = await fetch(`http://localhost:5001/api/aigraph/${idcall}`, {
+            const response = await fetch(`https://data-analysis-v3pv.onrender.com/api/aigraph/${idcall}`, {
                 method: 'GET'
             })
             if (response.ok) {
@@ -32,7 +32,7 @@ function AiGraph({ id }) {
 
     async function graphData(recommendations) {
         try {
-            const response = await fetch(`http://localhost:5001/api/graphdata/${id}`, {
+            const response = await fetch(`https://data-analysis-v3pv.onrender.com/api/graphdata/${id}`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
