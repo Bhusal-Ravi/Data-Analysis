@@ -9,6 +9,7 @@ import { ChevronLeft } from 'lucide-react';
 import { UserRoundSearch } from 'lucide-react';
 import { AppWindow } from 'lucide-react';
 import { Component } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 function About() {
     const navigate = useNavigate()
@@ -60,7 +61,7 @@ function About() {
                     </div>
                     <div className='flex flex-col font-semibold text-emerald-400'>
                         <h1 className='text-xl font-bold text-white'>About The Developer</h1>
-                        <h1 className='flex justify-center items-center'>- Ravi Bhusal <span className='font-thin text-sm ml-2 text-white/50'>Nepal, Kathmandu</span></h1>
+                        <h1 className='flex flex-col justify-center items-center'>- Ravi Bhusal <span className='font-thin text-sm ml-2 flex text-white/50'>< MapPin className='mr-2' />Nepal, Kathmandu</span></h1>
 
                     </div>
                 </div>
