@@ -21,7 +21,7 @@ function Upload({ onUploadSuccess, onNewUpload }) {
         setLoading(true);
 
         try {
-            const response = await fetch("http://localhost:5001/api/upload", {
+            const response = await fetch("https://data-analysis-v3pv.onrender.com/api/upload", {
                 method: "POST",
                 body: formData,
                 credentials: 'include',
