@@ -12,7 +12,7 @@ function Login() {
     }, [user, loading])
 
     function handleLogin() {
-        window.open('http://localhost:5001/auth/google', "_self");
+        window.open('https://data-analysis-v3pv.onrender.com/auth/google', "_self");
     }
 
     if (loading) {
