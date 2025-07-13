@@ -23,17 +23,20 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: false, 
-            maxAge: 60 * 60 * 1000 // 1 hour
+            secure: true, //  true for HTTPS
+            sameSite: 'none', // Required for cross-origin requests
+            maxAge: 60 * 60 * 1000, // 1 hour
+            httpOnly: true
         }
     })
 );
 app.use(
     cors({
-    origin:'https://data-analysis-cjd5.vercel.app',
-    methods:"GET,POST,PUT,DELETE",
-    credentials:true,
-})
+        origin: 'https://data-analysis-cjd5.vercel.app',
+        methods: "GET,POST,PUT,DELETE",
+        credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization']
+    })
 )
 app.use(express.json()); // Important for parsing any json coming to the backend [Note]
 app.use(passport.initialize());
