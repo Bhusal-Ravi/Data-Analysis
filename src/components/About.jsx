@@ -41,7 +41,7 @@ function About() {
     }
     return (
         <div className='flex flex-col px-2 relative justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 to-emerald-600'>
-            <button onClick={handleClick} className=' flex absolute px-2 py-1 rounded-md bg-gradient-to-br from-emerald-400 to-teal-400 cursor-pointer left-10 top-10 transition duration-400 hover:scale-102'> <ChevronLeft />Back Home</button>
+            <button onClick={handleClick} className='  flex absolute px-2 py-1 rounded-md bg-gradient-to-br from-emerald-400 to-teal-400 cursor-pointer left-10 top-10 transition duration-400 hover:scale-102'> <ChevronLeft />Back Home</button>
             <div className='mb-2 mt-5 px-2 py-1 rounded-xl bg-linear-to-r from-emerald-500 via-teal-500 to-cyan-500 drop-shadow-md drop-shadow-cyan-400/70 transition-transform delay-100 duration-700 hover:drop-shadow-emerald-600/70 hover:drop-shadow-lg hover:scale-110'>
                 <h1 className='text-4xl font-bold text-white overflow-hidden'>About DataAnalysis</h1>
             </div>
