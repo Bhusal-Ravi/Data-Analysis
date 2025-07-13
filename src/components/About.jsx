@@ -6,6 +6,9 @@ import { RxDiscordLogo } from "react-icons/rx";
 import { SlSocialTwitter } from "react-icons/sl";
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
+import { UserRoundSearch } from 'lucide-react';
+import { AppWindow } from 'lucide-react';
+import { Component } from 'lucide-react';
 
 function About() {
     const navigate = useNavigate()
@@ -36,7 +39,7 @@ function About() {
         navigate('/home')
     }
     return (
-        <div className='flex flex-col relative justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 to-emerald-600'>
+        <div className='flex flex-col px-2 relative justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 to-emerald-600'>
             <button onClick={handleClick} className=' flex absolute px-2 py-1 rounded-md bg-gradient-to-br from-emerald-400 to-teal-400 cursor-pointer left-10 top-10 transition duration-400 hover:scale-102'> <ChevronLeft />Back Home</button>
             <div className='mb-2 mt-5 px-2 py-1 rounded-xl bg-linear-to-r from-emerald-500 via-teal-500 to-cyan-500 drop-shadow-md drop-shadow-cyan-400/70 transition-transform delay-100 duration-700 hover:drop-shadow-emerald-600/70 hover:drop-shadow-lg hover:scale-110'>
                 <h1 className='text-4xl font-bold text-white overflow-hidden'>About DataAnalysis</h1>
@@ -104,8 +107,8 @@ function About() {
                     <div className='h-[140px] w-full overflow-hidden mb-5'>
                         <img src='https://i.imgur.com/KUuKhyA.jpeg' className='rounded-md object-cover transition duration-400 group-hover:scale-105' />
                     </div>
-                    <h1 className='border-b-1'>
-                        Who Its For
+                    <h1 className='border-b-1 flex text-emerald-800 font-semibold '>
+                        <UserRoundSearch className='mr-2' />Who Its For
                     </h1>
 
 
@@ -122,7 +125,7 @@ function About() {
                     <div className='h-[150px] w-full overflow-hidden mb-5'>
                         <img src='https://i.imgur.com/XJ4FGbG.jpeg' className='rounded-md object-cover transition duration-400 group-hover:scale-105' />
                     </div>
-                    <h1 className='border-b-1 text-white'>Reason For Development</h1>
+                    <h1 className='border-b-1 text-emerald-400 flex font-bold '><AppWindow className='mr-2' />Reason For Development</h1>
 
                     <div className='mt-5'>
                         <ul className='px-4 list-disc list-inside text-white text-md font-thin'>
@@ -137,7 +140,7 @@ function About() {
                     <div className='h-[140px] w-full overflow-hidden mb-5'>
                         <img src='https://i.imgur.com/Y1P6UNR.jpeg' className='rounded-md object-cover transition duration-400 group-hover:scale-105' />
                     </div>
-                    <h1 className='border-b-1'>Design Principles</h1>
+                    <h1 className='border-b-1 flex  text-emerald-800 font-semibold '>< Component className='mr-2' />Design Principles</h1>
 
                     <div className='mt-5 px-4'>
                         <ul className='list-disc list-inside text-sm font-thin'>
