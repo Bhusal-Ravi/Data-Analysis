@@ -16,13 +16,13 @@ router.get('/google/callback',
         successRedirect:process.env.CLIENT_URL || 'https://data-analysis-cjd5.vercel.app',
         failureRedirect:'/auth/login/failed'
     })
-,(req,res)=>{
-    console.log('Callback route reached') //just for debugging
-})
+)
 
 //Successful Login
 router.get("/login/success",(req,res)=>{
     console.log('Login success route hit, user:', req.user);
+    console.log('Session:', req.session);
+    console.log('Session ID:', req.sessionID);
     if(req.user){
         res.status(200).json({
             error:false,
