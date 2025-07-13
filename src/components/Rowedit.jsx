@@ -10,7 +10,7 @@ function Rowedit({ editRowValue, rowUpdate }) {
 
     const fetchUpdatedRows = useCallback(async () => {
         try {
-            const response = await fetch(`http://localhost:5001/api/rowupdate/${id}`, {
+            const response = await fetch(`https://data-analysis-v3pv.onrender.com/api/rowupdate/${id}`, {
 
                 method: "PUT",
                 headers: {
