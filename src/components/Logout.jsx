@@ -9,7 +9,7 @@ function Logout() {
 
     async function handleLogout() {
         try {
-            const response = await fetch('http://localhost:5001/auth/logout', {
+            const response = await fetch('https://data-analysis-v3pv.onrender.com/auth/logout', {
                 credentials: 'include',
                 method: 'POST'
             })
