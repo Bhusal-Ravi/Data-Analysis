@@ -16,7 +16,7 @@ function Columnedit({ onColumnUpdate, col, datasetId }) {
 
     async function handleColumnClick(type) {
         try {
-            const response = await fetch(`http://localhost:5001/api/columnedit/${keysdetail.id}?type=${type}`, {
+            const response = await fetch(`https://data-analysis-v3pv.onrender.com/api/columnedit/${keysdetail.id}?type=${type}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
