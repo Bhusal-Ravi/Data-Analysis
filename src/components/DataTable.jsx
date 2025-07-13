@@ -35,7 +35,7 @@ function DataTable({ datasetId }) {
         setLoading(true);
         try {
             const sortParam = appliedSort.key ? `&sort=${appliedSort.key}&order=${appliedSort.sort}` : '';
-            const response = await fetch(`http://localhost:5001/api/datasets/${datasetId}/rows?page=${page}&limit=50${sortParam}`);
+            const response = await fetch(`https://data-analysis-v3pv.onrender.com/api/datasets/${datasetId}/rows?page=${page}&limit=50${sortParam}`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
