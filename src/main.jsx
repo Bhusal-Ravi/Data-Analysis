@@ -11,6 +11,7 @@ import Navbar from './components/Navbar.jsx'
 import Features from './components/Features.jsx'
 import Pricing from './components/Pricing.jsx'
 import About from './components/About.jsx'
+import Footer from './components/Footer.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/home',
-        element: <ProtectedRoute><Navbar /><Home /></ProtectedRoute>
+        element: <ProtectedRoute><Navbar /><Home /><Footer /></ProtectedRoute>
       },
       {
         path: "/",

@@ -48,15 +48,16 @@ function Navbar() {
                     <h1 className='text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white ml-2 sm:ml-3 lg:ml-4'>Data Analysis</h1>
                 </div>
                 <div className='hidden sm:flex items-center space-x-6 lg:space-x-8 text-white/90 text-sm lg:text-base font-medium'>
-                    <button onClick={() => handleClick("features")} className='hover:text-white cursor-pointer transition-colors'>Features</button>
-                    <button onClick={() => handleClick("pricing")} className='hover:text-white cursor-pointer transition-colors'>Pricing</button>
+
                     <button onClick={() => handleClick("about")} className='hover:text-white cursor-pointer transition-colors'>About</button>
+                    <button onClick={() => handleClick("features")} className='hover:text-white cursor-pointer transition-colors'>Features</button>
+
                 </div>
                 <div>
                     {isMenuOpen ? (<X size={20} className='text-white sm:w-6 sm:h-6 lg:w-8 lg:h-8' onClick={handleMenu} />) : (<Menu size={20} className='text-white sm:w-6 sm:h-6 lg:w-8 lg:h-8' onClick={handleMenu} />)}
 
                     {isMenuOpen && (
-                        <div className='bg-gradient-to-r from-teal-600 to-cyan-600 flex flex-col justify-start border-2 border-white/20 shadow-lg text-white absolute right-2 top-15 p-4 sm:p-5 lg:p-6 rounded-xl backdrop-blur-sm min-w-[280px] sm:min-w-[320px] lg:min-w-[360px]'>
+                        <div className='bg-gradient-to-r from-teal-600 to-cyan-600 flex flex-col justify-start border-2 border-white/20 shadow-lg  absolute right-2 top-15 p-4 sm:p-5 lg:p-6 rounded-xl backdrop-blur-sm min-w-[280px] sm:min-w-[320px] lg:min-w-[360px]'>
                             <div className='p-4 sm:p-5 lg:p-6 rounded-lg bg-gradient-to-r from-emerald-400 to-emerald-600'>
                                 <div className='flex flex-row mb-4 sm:mb-5 lg:mb-6 items-center'>
                                     {!imageError && user?.avatar ? (
