@@ -15,7 +15,13 @@ router.get('/google/callback',
     passport.authenticate('google',{   //passport authenticate runs the google strategy (NOTE)
         successRedirect:process.env.CLIENT_URL || 'https://data-analysis-cjd5.vercel.app',
         failureRedirect:'/auth/login/failed'
-    })
+    }),
+    (req, res) => {
+        console.log('OAuth callback completed');
+        console.log('User in callback:', req.user);
+        console.log('Session in callback:', req.session);
+        
+    }
 )
 
 //Successful Login
