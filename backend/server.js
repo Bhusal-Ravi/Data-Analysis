@@ -19,7 +19,7 @@ const graphdataRoute= require('./uploads/graphdatafetch')
 
 app.use(
     session({
-        secret: process.env.SESSION_KEY || 'your-secret-key',
+        secret: process.env.SESSION_KEY 
         resave: false,
         saveUninitialized: false,
         cookie: {
