@@ -30,7 +30,7 @@ app.use(
 );
 app.use(
     cors({
-    origin:'http://localhost:5175',
+    origin:'https://data-analysis-cjd5.vercel.app',
     methods:"GET,POST,PUT,DELETE",
     credentials:true,
 })
