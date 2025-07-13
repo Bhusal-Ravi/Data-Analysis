@@ -13,7 +13,7 @@ function UserData({ onDataSetClick, newUploads, selectedDatasetId }) {
     async function handleUserData() {
         try {
             setLoading(true)
-            const response = await fetch('http://localhost:5001/api/datasetlist', {
+            const response = await fetch('https://data-analysis-v3pv.onrender.com/api/datasetlist', {
                 method: 'GET',
                 credentials: 'include',
             });
