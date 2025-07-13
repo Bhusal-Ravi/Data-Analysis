@@ -11,7 +11,7 @@ function AuthContext({ children }) {
 
     async function getUser() {
         try {
-            const response = await fetch('http://localhost:5001/auth/login/success', {
+            const response = await fetch('https://data-analysis-v3pv.onrender.com/auth/login/success', {
                 credentials: 'include' //for cookies
             })
 
