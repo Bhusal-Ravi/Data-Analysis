@@ -12,7 +12,7 @@ function AiSummary({ id }) {
         if (loading) return
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5001/api/aisummary/${id}`, {
+            const response = await fetch(`https://data-analysis-v3pv.onrender.com/api/aisummary/${id}`, {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
