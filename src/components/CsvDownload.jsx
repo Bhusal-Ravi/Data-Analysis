@@ -10,7 +10,7 @@ function CsvDownload({ id }) {
     function handleDownload() {
         if (id) {
 
-            window.open(`http://localhost:5001/api/downloadcsv/${id}`, '_blank');
+            window.open(`https://data-analysis-v3pv.onrender.com/api/downloadcsv/${id}`, '_blank');
         }
     }
 
