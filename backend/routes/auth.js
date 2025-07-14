@@ -20,6 +20,7 @@ router.get('/google/callback',
         console.log('OAuth callback completed');
         console.log('User in callback:', req.user);
         console.log('Session in callback:', req.session);
+        console.log('Session ID in callback:', req.sessionID);
         
     }
 )
