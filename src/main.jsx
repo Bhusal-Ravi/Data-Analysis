@@ -14,7 +14,7 @@ import About from './components/About.jsx'
 import Footer from './components/Footer.jsx'
 import PrivacyPolicy from './components/PrivacyPolicy.jsx'
 import TermsOfService from './components/TermsOfService.jsx'
-import ErrorPage from './components/ErrorPage.jsx'
+
 
 const router = createBrowserRouter([
   {
