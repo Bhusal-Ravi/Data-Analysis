@@ -14,6 +14,7 @@ import About from './components/About.jsx'
 import Footer from './components/Footer.jsx'
 import PrivacyPolicy from './components/PrivacyPolicy.jsx'
 import TermsOfService from './components/TermsOfService.jsx'
+import ErrorPage from './components/ErrorPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -22,12 +23,12 @@ const router = createBrowserRouter([
     errorElement: <div>Page Not Found</div>,
     children: [
       {
-        path: '/home',
-        element: <ProtectedRoute><Navbar /><Home /><Footer /></ProtectedRoute>
-      },
-      {
         path: '/',
         element: <Login />
+      },
+      {
+        path: '/home',
+        element: <ProtectedRoute><Navbar /><Home /><Footer /></ProtectedRoute>
       },
       {
         path: '/features',
@@ -40,16 +41,16 @@ const router = createBrowserRouter([
       {
         path: '/about',
         element: <About />
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />
+      },
+      {
+        path: "/terms-of-service",
+        element: <TermsOfService />
       }
     ]
-  },
-  {
-    path: "/privacy-policy",
-    element: <PrivacyPolicy />
-  },
-  {
-    path: "/terms-of-service",
-    element: <TermsOfService />
   }
 ])
 
