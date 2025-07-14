@@ -12,8 +12,12 @@ function AuthContext({ children }) {
     async function getUser() {
         try {
             const response = await fetch('https://data-analysis-v3pv.onrender.com/auth/login/success', {
-                credentials: 'include' //for cookies
-            })
+              credentials: 'include', // for cookies
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
 
             const result = await response.json();
             if (result.error === false) {
