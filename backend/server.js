@@ -4,6 +4,7 @@ const app=express();
 const dotenv= require ('dotenv').config();
 const passport= require("passport");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const passportSetup=require('./passport')
 const authRoute= require('./routes/auth');
 const connectdb = require('./config/dbconnection');
@@ -22,14 +23,17 @@ app.use(
         secret: process.env.SESSION_KEY,
         resave: false,
         saveUninitialized: false,
+        store: MongoStore.create({
+            mongoUrl: process.env.DB_CONNECTION_STRING,
+            ttl: 60 * 60 * 24 // 24 hours
+        }),
         cookie: {
             secure: true, // true for HTTPS
             sameSite: 'none', // Required for cross-origin
             maxAge: 60 * 60 * 1000, // 1 hour
-            httpOnly: true,
-            domain: '.onrender.com' 
+            httpOnly: true
         },
-        proxy: true // Add this if behind a proxy
+        proxy: true 
     })
 );
 app.use(
