@@ -23,21 +23,24 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: true, //  true for HTTPS
-            sameSite: 'none', // Required for cross-origin requests
+            secure: true, // true for HTTPS
+            sameSite: 'none', // Required for cross-origin
             maxAge: 60 * 60 * 1000, // 1 hour
-            httpOnly: true
-        }
+            httpOnly: true,
+            domain: '.onrender.com' 
+        },
+        proxy: true // Add this if behind a proxy
     })
 );
 app.use(
     cors({
-        origin: 'https://data-analysis-cjd5.vercel.app',
+        origin: ['https://data-analysis-cjd5.vercel.app'],
         methods: "GET,POST,PUT,DELETE",
         credentials: true,
-        allowedHeaders: ['Content-Type', 'Authorization']
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        exposedHeaders: ['set-cookie'] 
     })
-)
+);
 app.use(express.json()); // Important for parsing any json coming to the backend [Note]
 app.use(passport.initialize());
 app.use(passport.session());
