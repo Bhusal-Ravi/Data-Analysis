@@ -12,6 +12,8 @@ import Features from './components/Features.jsx'
 import Pricing from './components/Pricing.jsx'
 import About from './components/About.jsx'
 import Footer from './components/Footer.jsx'
+import PrivacyPolicy from './components/PrivacyPolicy.jsx'
+import TermsOfService from './components/TermsOfService.jsx'
 
 const router = createBrowserRouter([
   {
@@ -24,23 +26,30 @@ const router = createBrowserRouter([
         element: <ProtectedRoute><Navbar /><Home /><Footer /></ProtectedRoute>
       },
       {
-        path: "/",
+        path: '/',
         element: <Login />
       },
       {
         path: '/features',
         element: <Features />
-      }, {
+      },
+      {
         path: '/pricing',
-        element: <Pricing />,
+        element: <Pricing />
       },
       {
         path: '/about',
         element: <About />
       }
-
     ]
-
+  },
+  {
+    path: "/privacy-policy",
+    element: <PrivacyPolicy />
+  },
+  {
+    path: "/terms-of-service",
+    element: <TermsOfService />
   }
 ])
 
