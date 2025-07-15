@@ -1,10 +1,81 @@
-<img width="1920" height="942" alt="image" src="https://github.com/user-attachments/assets/d78c5259-815c-4b32-a276-17ab1021221d" />
-<img width="1920" height="942" alt="image" src="https://github.com/user-attachments/assets/4ef50228-4dc5-4c51-af0d-8b3c07277188" />
-<img width="1919" height="922" alt="image" src="https://github.com/user-attachments/assets/d4527a67-06e3-44c6-9292-e252c9da17cf" />
-<img width="1918" height="903" alt="image" src="https://github.com/user-attachments/assets/2a27e4f9-f2c2-4ab3-99c0-77e2c205eb06" />
-<img width="1920" height="833" alt="image" src="https://github.com/user-attachments/assets/c17b8a7f-0fe7-487e-8593-442a00aa9cea" />
-<img width="1289" height="167" alt="image" src="https://github.com/user-attachments/assets/c7353891-7651-42db-b6a0-867a92222629" />
-<img width="1909" height="760" alt="image" src="https://github.com/user-attachments/assets/2af01bc3-3466-4a45-b860-9b648f75a96b" />
+
+# Data Analysis
+
+An AI-powered data explorer that summarizes, visualizes, and lets you edit datasets in real time—perfect for fast insights, reporting, and hands-on cleanup without needing code or complex tools.
+
+## Authors
+
+- [@Bhusal-Ravi](https://github.com/Bhusal-Ravi)
+
+## Color Reference
+
+| Color             | Hex                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| Emerald-400 |  #facc15 |
+| Slate-800 | #1e293b |
+| Emerald-800 | #065f46 |
 
 
+
+## Demo
+
+
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+
+`PORT`    
+
+`SESSION_KEY(Google oAuth)`
+
+`CLIENT_ID      (Google oAuth) `
+
+`CLIENT_SECRET (Google oAuth)`
+
+`CLIENT_URL=  "http://localhost:5175" (example)`
+
+`DB_CONNECTION_STRING (mongoDb)`
+
+`GEMINI_API_KEY (Ai summary and Graph Suggestions)`
+
+## Features
+
+- Generates plain-language AI summaries with key trends and insights
+
+- Categorizes and explains columns for easy understanding
+
+- Real-time inline editing with auto-save in a spreadsheet-like table
+
+- AI-recommended chart types with adaptive visuals and smart labels
+
+- Interactive charts with hover tooltips, zoom, and clean styling
+
+- Built for fast data exploration, reporting, and cleanup without code
+
+
+
+## Installation
+
+Install DataAnalysis with npm
+
+```bash
+clone the project
+cd dataanalysis
+npm install
+cd ..
+cd backend
+npm install
+npm run dev
+cd ..
+cd src
+npm run dev
+```
+    
+## Tech Stack
+
+**Client:** React,Recharts, TailwindCSS
+
+**Server:** Node, Express, Gemini Api
 
