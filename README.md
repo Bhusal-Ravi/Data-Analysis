@@ -18,7 +18,7 @@ An AI-powered data explorer that summarizes, visualizes, and lets you edit datas
 
 
 ## Demo
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/NeQaCFK" data-context="false" ><a href="//imgur.com/a/NeQaCFK"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+![Demo](https://i.imgur.com/EhYZKXz.gif)
 
 
 
