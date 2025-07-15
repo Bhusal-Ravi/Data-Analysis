@@ -18,6 +18,11 @@ function Login() {
     if (loading) {
         return <div>Loading...</div>
     }
+
+    function handleClick(value){
+        navigate(`/${value}`);    
+}
+
     return (
         <div
             className='flex flex-col bg-cover bg-center bg-fixed min-h-screen px-4 sm:px-6 lg:px-8 xl:px-12 relative'
@@ -37,9 +42,9 @@ function Login() {
                 </div>
                 <div className='flex items-center space-x-4'>
                     <div className='hidden sm:flex items-center space-x-6 lg:space-x-8 text-white/90 text-sm lg:text-base font-medium'>
-                        <button className='hover:text-white cursor-pointer transition-colors'>Features</button>
-                        <button className='hover:text-white cursor-pointer transition-colors'>Pricing</button>
-                        <button className='hover:text-white cursor-pointer transition-colors'>About</button>
+                        <button onClick={()=>{handleClick("features")}} className='hover:text-white cursor-pointer transition-colors'>Features</button>
+                        
+                        <button onClick={()=>{handleClick("about")}} className='hover:text-white cursor-pointer transition-colors'>About</button>
                     </div>
                 </div>
             </nav>
