@@ -18,7 +18,8 @@ An AI-powered data explorer that summarizes, visualizes, and lets you edit datas
 
 
 ## Demo
-![til](/public/demo.gif)
+<img src="public/demo.gif" width="400" height="250"/>
+)
 
 
 ## Environment Variables
