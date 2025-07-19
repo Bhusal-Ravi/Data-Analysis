@@ -1,6 +1,6 @@
 
 import { Outlet } from 'react-router-dom';
-import DarkModeToggle from './components/Darkmode';
+
 function App() {
 
 
