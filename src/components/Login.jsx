@@ -16,7 +16,7 @@ function Login() {
     }
 
     if (loading) {
-        return <div>Loading...</div>
+        return <div className="min-h-screen flex justify-center items-center bg-slate-700 text-emerald-400 text-3xl">Wait The BackEnd Is Starting...</div>
     }
 
     function handleClick(value){
