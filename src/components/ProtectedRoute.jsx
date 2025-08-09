@@ -7,7 +7,7 @@ function ProtectedRoute({ children }) {
     const { user, loading } = useContext(UserContext)
 
     if (loading) {
-        return <div>Loading...</div>
+        return <div className="min-h-screen flex justify-center items-center text-7xl text-emerald-800">Wait The Backend Is Starting</div>
     }
 
     if (!user) {
