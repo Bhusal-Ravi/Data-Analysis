@@ -17,7 +17,7 @@ const aisummaryRoute= require('./uploads/aisummary')
 const downloadcsvRoute= require('./uploads/downloadcsv')
 const aigraphRoute= require('./uploads/aigraph')
 const graphdataRoute= require('./uploads/graphdatafetch')
-const healthcheckRoute= require('./uploads/healthcheck.js');
+const healthcheckRoute= require('./routes/healthcheck');
 
 app.use(
     session({
