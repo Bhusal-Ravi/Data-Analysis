@@ -17,6 +17,7 @@ const aisummaryRoute= require('./uploads/aisummary')
 const downloadcsvRoute= require('./uploads/downloadcsv')
 const aigraphRoute= require('./uploads/aigraph')
 const graphdataRoute= require('./uploads/graphdatafetch')
+const healthcheckRoute= require('./uploads/healthcheck.js');
 
 app.use(
     session({
@@ -58,6 +59,7 @@ app.use('/api',aisummaryRoute);
 app.use('/api',downloadcsvRoute)
 app.use('/api',aigraphRoute)
 app.use('/api',graphdataRoute);
+app.use('/api',healthcheckRoute);
 
 connectdb();
 
